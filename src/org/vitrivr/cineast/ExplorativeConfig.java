@@ -7,13 +7,14 @@ import java.util.Properties;
 
 public class ExplorativeConfig {
 
-    private static String csvPath = "/Users/silvanstich/Library/Containers/com.apple.mail/Data/Library/Mail Downloads/CA01A1C7-162D-454F-9645-8F9250035697/neuralnet_vgg16_fullvector";
+    private static String csvPath = "/Users/silvanstich/Downloads/neuralnet_vgg16_fullvector";
     private static String featureName = "nn_vecotrs";
     private static String elementLimit = "1000";
     private static String dataFolder = "data/";
     private static String resultFolder = "results/html/experimental/";
     private static String treeSerializationFileName = "nn_serialized_tree.ser";
     private static String mode = "csv";
+    private static String compactness = "";
 
     public static void readConfig(String file){
         Properties properties = new Properties();
@@ -32,6 +33,7 @@ public class ExplorativeConfig {
         resultFolder = properties.getProperty("resultFolder", resultFolder);
         treeSerializationFileName = properties.getProperty("treeSerializationFileName", treeSerializationFileName);
         mode = properties.getProperty("mode", mode);
+        compactness = properties.getProperty("compactness", compactness);
     }
 
     public static String getCsvPath() {
@@ -60,5 +62,9 @@ public class ExplorativeConfig {
 
     public static String getMode() {
         return mode;
+    }
+
+    public static String getCompactness() {
+        return compactness;
     }
 }

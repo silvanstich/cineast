@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class SilvanPlayground {
     private static Logger logger = LogManager.getLogger();
-    public static HashMap<String, String> segments = new HashMap<>();;
+    public static HashMap<String, String> segments = new HashMap<>();
 
     public static void main(String[] args) {
         if(args.length > 0){
@@ -27,6 +27,7 @@ public class SilvanPlayground {
             ExplorativeConfig.readConfig(args[0]);
         }
         String mode = ExplorativeConfig.getMode();
+        logger.info("Compactness calculated according to " + ExplorativeConfig.getCompactness());
 
         if(mode.equals("csv")){
             processCSVValues();
@@ -65,6 +66,8 @@ public class SilvanPlayground {
             outputStream.writeObject(hct);
             logger.info("HCT has been written to the file system.");
 
+            System.exit(0);
+
             logger.info("Traversion started...");
 //            hct.traverseTreeHorizontal(new PlaneManager<>(new FloatArrayEuclideanDistance(), featureName.toLowerCase()));
             hct.traverseTreeHorizontal(new ImprovedPlaneManager<>(new FloatArrayEuclideanDistance(), featureName.toLowerCase()));
@@ -93,11 +96,15 @@ public class SilvanPlayground {
         HCT<HCTFloatVectorValue> hct = new HCT<>(new DefaultCompactnessCalculation(), new FloatArrayEuclideanDistance());
         int i = 0;
         int limit = Integer.parseInt(ExplorativeConfig.getElementLimit());
+        EvaluationFile.open();
+        EvaluationFile.start();
         for (HCTFloatVectorValue vector : vectors) {
             i++;
             hct.insert(vector);
+            if(i % 1000 == 0) EvaluationFile.append(i, hct.getNbrOfCellsInTree(), hct.getNbrOfLevelsInTree());
             if(i == limit) break;
         }
+        EvaluationFile.close();
         return hct;
     }
 
@@ -142,9 +149,9 @@ public class SilvanPlayground {
             logger.info("# of elements in tree by traversion: " + hct.traverse(hct.getRootCell(), 0));
 
             logger.info("Start writting HCT to the file system...");
-            File folder = new File("data/");
+            File folder = new File(ExplorativeConfig.getDataFolder());
             if (!folder.exists()) folder.mkdirs();
-            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(new File(folder, "serialized_tree.ser")));
+            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(new File(ExplorativeConfig.getDataFolder(), ExplorativeConfig.getTreeSerializationFileName())));
             outputStream.writeObject(hct);
             logger.info("HCT has been written to the file system.");
 

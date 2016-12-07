@@ -276,12 +276,16 @@ public class HCT<T extends Comparable<T>> implements IHCT<T>, Serializable{
         return levels.get(levels.size() - 1).getCells().get(0);
     }
 
-    private long getNbrOfCellsInTree(){
+    public long getNbrOfCellsInTree(){
         long nbrOfCells = 0;
         for(HCTLevel<T> level : levels){
             nbrOfCells += level.getCells().size();
         }
         return nbrOfCells;
+    }
+
+    public int getNbrOfLevelsInTree(){
+        return levels.size();
     }
 
     private double dmin(T other, List<IHCTCell<T>> arrayCS) throws Exception {

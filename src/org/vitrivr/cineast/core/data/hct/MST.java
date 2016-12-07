@@ -88,7 +88,7 @@ class MST<T extends Comparable<T>> implements IMST<T>, Serializable {
 
     public boolean isReadyForMitosis(){
 
-        return getCompactness() > 0.5; // // TODO: 14.09.16 needs real implemenation
+        return getCompactness() > 0.5;
     }
 
     public List<IMST<T>> mitosis() throws Exception {
