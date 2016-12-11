@@ -75,7 +75,7 @@ public class SilvanPlayground {
 
             logger.info("Show json request");
             PlaneManager pm = RequestHandler.getSpecificPlaneManager(featureName);
-            System.out.println(pm.getElementField(0, 240, 240, 245, 245));
+//            System.out.println(pm.getElementField(0, 240, 240, 245, 245));
 
             logger.info("Started deserialization");
             ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(new File("data/serialized_tree.ser")));
@@ -162,7 +162,7 @@ public class SilvanPlayground {
 
             logger.info("Show json request");
             PlaneManager pm = RequestHandler.getSpecificPlaneManager(featureName);
-            System.out.println(pm.getElementField(0, 240, 240, 245, 245));
+//            System.out.println(pm.getElementField(0, 240, 240, 245, 245));
 
             logger.info("Started deserialization");
             ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(new File(ExplorativeConfig.getDataFolder(), ExplorativeConfig.getTreeSerializationFileName())));

@@ -106,8 +106,8 @@ public class JSONAPIThread extends Thread {
 //					
 //					resultobj = JSONEncoder.encodeShot(rset.getInt(1), desc.getVideoId(), desc.getStartFrame(), desc.getEndFrame());
 //					
-//					this.printer.print(resultobj.toString());
-//					this.printer.print(',');
+//					this.printer.getId(resultobj.toString());
+//					this.printer.getId(',');
 //					printer.flush();
 //					if(i % 20 == 0){
 //						Thread.sleep(100);
@@ -404,30 +404,7 @@ public class JSONAPIThread extends Thread {
 				LOGGER.debug("Context API call ending");
 				break;
 			}
-
-			case "explorative_tile_field":{
-				LOGGER.debug("Explorative_Tile Field API call starting");
-
-				int startX = clientJSON.get("startX").asInt();
-				int startY = clientJSON.get("startY").asInt();
-				int endX = clientJSON.get("endX").asInt();
-				int endY = clientJSON.get("endY").asInt();
-				int level = clientJSON.get("level").asInt();
-				String featureName = clientJSON.get("featureName").asString();
-				PlaneManager specificPlaneManager = RequestHandler.getSpecificPlaneManager(featureName);
-				JsonArray jsonArray = specificPlaneManager.getElementField(level, startX, startY, endX, endY);
-
-				JsonObject batch = new JsonObject();
-				batch.add("type", "explorative");
-				batch.add("msg", jsonArray);
-				printer.print("[");
-				printer.println(batch.toString());
-				printer.print("]");
-				printer.flush();
-				printer.close();
-				break;
-			}
-
+			
 			case "explorative_tile_position": {
 				LOGGER.debug("Explorative_Tile Position API call starting");
 

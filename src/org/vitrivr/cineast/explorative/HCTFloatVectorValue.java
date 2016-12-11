@@ -19,10 +19,6 @@ public class HCTFloatVectorValue
         return vector;
     }
 
-    public String getId() {
-        return id;
-    }
-
     @Override
     public int compareTo(HCTFloatVectorValue o) {
         if(id.hashCode() > o.getId().hashCode() ){
@@ -40,7 +36,7 @@ public class HCTFloatVectorValue
     }
 
     @Override
-    public String print() {
+    public String getId() {
         return id;
     }
 
